@@ -1,15 +1,15 @@
 {
   "name": "gulp-htmloptimize",
   "description": "gulp html files",
-  "version": "0.0.2",
-  "homepage": "https://github.com/dnxbf321/gulp-htmloptmize",
+  "version": "0.0.1",
+  "homepage": "https://github.com/dnxbf321/gulp-htmloptimize",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/dnxbf321/gulp-htmloptmize.git"
+    "url": "https://github.com/dnxbf321/gulp-htmloptimize.git"
   },
   "keywords": [
     "html",
@@ -17,7 +17,7 @@
     "optimize"
   ],
   "author": {
-    "name": "Jason Tung",
+    "name": "dnxbf321",
     "email": "dnxbf321@gamil.com",
     "url": "https://github.com/dnxbf321"
   },
