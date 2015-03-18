@@ -199,7 +199,6 @@ module.exports = function(opts) {
     },
     pushHtmlFile: function(blocks) {
       var dest = relativeDest(this.filepath, this.filebase);
-      console.log(dest);
       var htmlFile = new gutil.File({
         path: dest,
         contents: new Buffer(blocks.join(''))
@@ -210,9 +209,8 @@ module.exports = function(opts) {
     pushStaticFile: function(groups) {
       var self = this;
       groups.forEach(function(group) {
-        console.log('group dest', group.dest);
         var dest = relativeDest(group.dest, self.filebase);
-        console.log(dest);
+        
         var optimizeFun = group.type === 'css' ? optimizeCss : optimizeJs;
         var optimized = optimizeFun(group.source);
 
