@@ -44,9 +44,8 @@ module.exports = function(opts) {
     return path.resolve(p).replace(/\\/g, '/');
   }
 
-  function resolveDest(p, base) {
-    p = p.replace(base, '');
-    return path.resolve(p).replace(/^\//i, '');
+  function relativeDest(p, base) {
+    return p.replace(base, '').replace(opts.root, '').replace(/^\//i, '');
   }
 
   function getNewImports(filepath, content, included) {
@@ -199,8 +198,8 @@ module.exports = function(opts) {
       return paths;
     },
     pushHtmlFile: function(blocks) {
-      var dest = resolveDest(this.filepath, this.filebase);
-
+      var dest = relativeDest(this.filepath, this.filebase);
+      console.log(dest);
       var htmlFile = new gutil.File({
         path: dest,
         contents: new Buffer(blocks.join(''))
@@ -211,8 +210,9 @@ module.exports = function(opts) {
     pushStaticFile: function(groups) {
       var self = this;
       groups.forEach(function(group) {
-        var dest = resolveDest(group.dest, self.filebase);
-
+        console.log('group dest', group.dest);
+        var dest = relativeDest(group.dest, self.filebase);
+        console.log(dest);
         var optimizeFun = group.type === 'css' ? optimizeCss : optimizeJs;
         var optimized = optimizeFun(group.source);
 
