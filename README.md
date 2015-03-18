@@ -4,10 +4,10 @@
 ## 使用方法
 
 ```js
-var htmloptmize = require('gulp-htmloptimize');
-gulp.task('htmloptmize', function() {
+var htmloptimize = require('gulp-htmloptimize');
+gulp.task('htmloptimize', function() {
   return gulp.src('./**/*.html')
-    .pipe(htmloptmize({}))
+    .pipe(htmloptimize({}))
     .pipe(gulp.dest('./dist'));
 });
 ```
@@ -102,10 +102,10 @@ console.log('hello world!');
 
 ####gulp task
 ```js
-var htmloptmize = require('gulp-htmloptimize');
-gulp.task('htmloptmize', function() {
+var htmloptimize = require('gulp-htmloptimize');
+gulp.task('htmloptimize', function() {
   return gulp.src('./test/**/*.html')
-    .pipe(htmloptmize({}))
+    .pipe(htmloptimize({}))
     .pipe(gulp.dest('./dist'));
 });
 ```
