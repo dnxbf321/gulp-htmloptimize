@@ -1,0 +1,9 @@
+@import url(b.css);
+
+body {
+  height: 100px;
+
+  background: #000;
+
+  transform: scale(0.5);
+}

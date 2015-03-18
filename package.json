@@ -1,0 +1,34 @@
+{
+  "name": "gulp-htmloptimize",
+  "description": "gulp html files",
+  "version": "0.0.2",
+  "homepage": "https://github.com/dnxbf321/gulp-htmloptmize",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dnxbf321/gulp-htmloptmize.git"
+  },
+  "keywords": [
+    "html",
+    "gulp",
+    "optimize"
+  ],
+  "author": {
+    "name": "Jason Tung",
+    "email": "dnxbf321@gamil.com",
+    "url": "https://github.com/dnxbf321"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "through2": "0.6.3",
+    "glob": "5.0.3",
+    "gulp": "3.8.11",
+    "gulp-util": "3.0.4",
+    "clean-css": "3.1.*",
+    "autoprefixer-core": "5.1.*",
+    "uglify-js": "1.3.5"
+  }
+}
