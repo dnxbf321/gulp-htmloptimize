@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    html {
+      opacity: 0.5;
+    }
+    body {
+      transform: scale(0.5);
+    }
+  </style>
+  <title>test</title>
+</head>
+<body>
+  test body.
+  <script>
+  (function(win) {
+    win.hello = 'world';
+  }(window));
+  </script>
+  code between two scripts
+  <script>
+  (function(win) {
+    win.world = 'hello';
+  }(window));
+  </script>
+</body>
+</html>

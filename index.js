@@ -14,7 +14,9 @@ module.exports = function(opts) {
     END_REG = /<!--\s*endbuild\s*-->/gim,
     JSFILE_REG = /<script\s+.*src=(?:"|')([^"']+?)(?:"|').*><\/script>/gi,
     CSSFILE_REG = /<link\s+.*href\s*=\s*(?:"|')([^"']+)(?:"|').*>/gi,
-    IMPORT_REG = /@import\s*url\((?:'|")?([^\s]+)(?:'|")?\)[\s\;]?/gi;
+    IMPORT_REG = /@import\s*url\((?:'|")?([^\s]+)(?:'|")?\)[\s\;]?/gi,
+    INLINE_START_REG = /(\<(?:script|style)\>)/gim,
+    INLINE_END_REG = /(\<\/(?:script|style)\>)/gim;
 
   opts = mergeObj({
     root: process.cwd().replace(/\\/g, '/'),
@@ -125,8 +127,33 @@ module.exports = function(opts) {
     return ret;
   }
 
-  function inlineOptimze() {
-
+  /*
+   * 行内css、js优化
+   * 注：不支持内嵌样式, 只支持<script>...</script>
+   */
+  function inlineOptimze(source) {
+    var blocks = [];
+    var sections = source.split(INLINE_START_REG);
+    sections.forEach(function(s) {
+      if (s.match(INLINE_END_REG) && !s.match(JSFILE_REG)) {
+        // s[0] css rules or js code
+        // s[1] </style> or </script>
+        // s[2] other html code after </style> </script>
+        s = s.split(INLINE_END_REG);
+        switch (s[1]) {
+          case '</style>':
+            s[0] = optimizeCss(s[0]);
+            break;
+          case '</script>':
+            s[0] = optimizeJs(s[0]);
+            break;
+        }
+        blocks.push(s.join(''));
+      } else {
+        blocks.push(s);
+      }
+    });
+    return blocks.join('');
   }
 
   function Builder(file, push) {
@@ -199,9 +226,10 @@ module.exports = function(opts) {
     },
     pushHtmlFile: function(blocks) {
       var dest = relativeDest(this.filepath, this.filebase);
+      var optimized = inlineOptimze(blocks.join(''));
       var htmlFile = new gutil.File({
         path: dest,
-        contents: new Buffer(blocks.join(''))
+        contents: new Buffer(optimized)
       });
       this.push(htmlFile);
       return this;
@@ -210,7 +238,7 @@ module.exports = function(opts) {
       var self = this;
       groups.forEach(function(group) {
         var dest = relativeDest(group.dest, self.filebase);
-        
+
         var optimizeFun = group.type === 'css' ? optimizeCss : optimizeJs;
         var optimized = optimizeFun(group.source);
 
