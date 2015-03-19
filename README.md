@@ -20,7 +20,7 @@ gulp.task('htmloptimize', function() {
     * 压缩、优化css，使用 clean-css 库
 3.  编译js文件
     * 压缩混淆 js 代码，使用 uglify-js 库
-4.  行内样式、js优化（待支持）
+4.  行内样式、js优化
 5.  自定义配置（待支持）
 
 ## 文档
