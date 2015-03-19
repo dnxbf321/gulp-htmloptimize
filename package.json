@@ -1,7 +1,7 @@
 {
   "name": "gulp-htmloptimize",
   "description": "gulp html files",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/dnxbf321/gulp-htmloptimize",
   "main": "index.js",
   "scripts": {

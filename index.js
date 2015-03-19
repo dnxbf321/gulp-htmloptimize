@@ -20,7 +20,25 @@ module.exports = function(opts) {
 
   opts = mergeObj({
     root: process.cwd().replace(/\\/g, '/'),
-    assetsDir: ''
+    assetsDir: '',
+    uglifyJs: {
+      mangle: {
+        except: ['require', 'exports', 'module']
+      },
+      code: {
+        indent_level: 2
+      }
+    },
+    autoprefixer: {
+      safe: true,
+      browsers: ['> 5%', 'last 3 versions', 'Firefox ESR', 'iOS >= 6', 'Android >= 4.0', 'ExplorerMobile >= 10']
+    },
+    cleanCss: {
+      advanced: false,
+      keepSpecialComments: 0,
+      processImport: false,
+      rebase: false
+    }
   }, opts);
 
   function mergeObj(source1, source2) {
@@ -95,17 +113,9 @@ module.exports = function(opts) {
   function optimizeCss(source) {
     var ret = '';
     // autoprefixer
-    ret = autoprefixer.process(source, {
-      safe: true,
-      browsers: ['> 2%', 'last 4 versions', 'Firefox ESR', 'iOS >= 6', 'Android >= 2.3', 'ExplorerMobile >= 10']
-    }).css;
+    ret = autoprefixer.process(source, opts.autoprefixer).css;
     // minify
-    ret = new CleanCSS({
-      advanced: false,
-      keepSpecialComments: 0,
-      processImport: false,
-      rebase: false
-    }).minify(ret).styles;
+    ret = new CleanCSS(opts.cleanCss).minify(ret).styles;
 
     return ret;
   }
@@ -116,14 +126,10 @@ module.exports = function(opts) {
   function optimizeJs(source) {
     var ret = '';
     ret = parser.parse(source);
-    ret = uglify.ast_mangle(ret, {
-      except: ['require', 'exports', 'module']
-    });
+    ret = uglify.ast_mangle(ret, opts.uglifyJs.mangle);
     ret = uglify.ast_lift_variables(ret);
     ret = uglify.ast_squeeze(ret);
-    ret = uglify.gen_code(ret, {
-      'quote_keys': true
-    });
+    ret = uglify.gen_code(ret, opts.uglifyJs.code);
     return ret;
   }
 
@@ -252,19 +258,24 @@ module.exports = function(opts) {
   };
 
   return through.obj(function(file, enc, cb) {
-    if (file.isStream()) {
-      this.emit('error', new gutil.PluginError('gulp-htmlbuild', 'Streams are not supported!\n'));
-      cb();
-    } else if (file.isNull()) {
-      cb(null, file);
-    } else {
-      try {
-        new Builder(file, this.push.bind(this));
-      } catch (e) {
-        this.emit('error', e);
-      } finally {
-        cb();
-      }
+    switch (true) {
+      case opts.debug:
+        this.push(file);
+        break;
+      case file.isStream():
+        this.emit('error', new gutil.PluginError('gulp-htmlbuild', 'Streams are not supported!\n'));
+        break;
+      case file.isNull():
+        cb(null, file);
+        return;
+        break;
+      default:
+        try {
+          new Builder(file, this.push.bind(this));
+        } catch (e) {
+          this.emit('error', e);
+        }
     }
+    cb();
   });
 };

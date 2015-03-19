@@ -21,7 +21,7 @@ gulp.task('htmloptimize', function() {
 3.  编译js文件
     * 压缩混淆 js 代码，使用 uglify-js 库
 4.  行内样式、js优化
-5.  自定义配置（待支持）
+5.  自定义配置
 
 ## 文档
 [wiki](https://github.com/dnxbf321/gulp-htmloptimize/wiki)
