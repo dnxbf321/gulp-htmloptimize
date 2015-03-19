@@ -29,6 +29,7 @@ gulp.task('htmloptimize', function() {
 ## options
 ```
 opts = mergeObj({
+    debug: false,
     root: process.cwd().replace(/\\/g, '/'),
     assetsDir: '',
     uglifyJs: {
@@ -52,6 +53,10 @@ opts = mergeObj({
   }, yourOpts);
 ```
 <table>
+  <tr>
+    <td> debug </td>
+    <td> 什么都不做，directly pipe </td>
+  </tr>
   <tr>
     <td> root </td>
     <td> web项目根目录，大部分情况应当与package.json同级（tips：硬盘路径，使用path.resolve(process.cwd(), '../yourproject')获得） </td>
