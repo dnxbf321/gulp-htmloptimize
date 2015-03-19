@@ -62,15 +62,15 @@ opts = mergeObj({
   </tr>
   <tr>
     <td> uglifyJs </td>
-    <td> 见 [uglifyJs的配置](https://github.com/mishoo/UglifyJS)</td>
+    <td> 见 [uglifyJs的配置](https://github.com/mishoo/UglifyJS) </td>
   </tr>
   <tr>
     <td> autoprefixer </td>
-    <td> 见 [autoprefixer-core的配置](https://github.com/postcss/autoprefixer-core)</td>
+    <td> 见 [autoprefixer-core的配置](https://github.com/postcss/autoprefixer-core) </td>
   </tr>
   <tr>
     <td> cleanCss </td>
-    <td> 见 [clean-css的配置](https://github.com/jakubpawlowicz/clean-css)</td>
+    <td> 见 [clean-css的配置](https://github.com/jakubpawlowicz/clean-css) </td>
   </tr>
 </table>
 
