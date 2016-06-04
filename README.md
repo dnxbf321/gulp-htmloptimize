@@ -1,3 +1,6 @@
+# 推荐 [node-project-template](https://github.com/dnxbf321/node-project-template)
+gulp-htmloptimize 已非常陈旧，npm scripts 当道，node-project-template 基于 npm scripts 提供整套的前端开发流程
+
 # gulp-htmloptimize
 构建 html 的 gulp 模块
 
